@@ -1,11 +1,13 @@
 package diospringsecurity;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -13,61 +15,54 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
   
-    //Em memória
-    
-    @Autowired
-    public void configure(AuthenticationManagerBuilder auth) 
-    throws Exception {
-        auth.inMemoryAuthentication()
-        .withUser("user").password("{noop}user123").roles("USERS")
-        .and()
-        .withUser("admin").password("{noop}master123").roles("MANAGERS");
-    }        
-
-    /*
-    
-     
-      
-    */
-
-    //Configure Adapter
-    //formLogin() deprecated since spring security 6.1
-
-    
-    /*
-     
-
-    */
-    
-    
+//=================================================================
     
     @Bean
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(
+            User.withUsername("user")
+                .password(passwordEncoder.encode("user123"))
+                .roles("USERS")
+                .build()
+        );
+        manager.createUser(
+            User.withUsername("admin")
+                .password(passwordEncoder.encode("master123"))
+                .roles("MANAGERS")
+                .build()
+        );
+        return manager;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(); // apenas para testes
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorizedConfig -> {
-
-            authorizedConfig.requestMatchers("/", "/login").permitAll();
-
-            authorizedConfig.requestMatchers("/users").hasAnyAuthority("ROLE_USERS", "ROLE_MANAGERS");
-
-            authorizedConfig.requestMatchers("/managers").hasAuthority("ROLE_MANAGERS");
-         
-         }).formLogin(
-             form -> 
-             form.loginPage("/login")
-             .permitAll()
-         );
-
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/login").permitAll()
+                .requestMatchers("/users").hasAnyRole("USERS", "MANAGERS")
+                .requestMatchers("/managers").hasRole("MANAGERS")
+                .anyRequest().authenticated()
+            )
+            .formLogin()
+            .and()
+            .httpBasic(); 
         return http.build();
     }
 
+//=================================================================
+    
+/*
 
-     /*
+DEPRECATED since Spring Security 6:
 
-
-
-
-
- @Override
+@Override
     protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
             .antMatchers("/").permitAll()
@@ -95,5 +90,7 @@ public class WebSecurityConfig {
     }
 
    */
+
+
 }
     
