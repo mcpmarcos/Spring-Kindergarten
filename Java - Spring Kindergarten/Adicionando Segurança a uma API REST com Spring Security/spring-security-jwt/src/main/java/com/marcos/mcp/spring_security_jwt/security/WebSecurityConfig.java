@@ -42,11 +42,11 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTFilter jwtFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.headers(headers -> headers.frameOptions(frame -> frame.disable()))
         .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.disable())
-        .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterAfter(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)
         .authorizeHttpRequests(auth -> auth
         .requestMatchers(SWAGGER_WHITELIST).permitAll()
         .requestMatchers("/h2-console/**").permitAll()
@@ -61,31 +61,6 @@ public class WebSecurityConfig {
     }
    
    
-    //============================================================================ //
-    
-    //@Override
-    // protected void configure(HttpSecurity http) throws Exception {
-    //     http.headers().frameOptions().disable();
-    //     http.cors().and().csrf().disable()
-    //             .addFilterAfter(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)
-    //             .authorizeRequests()
-    //             .antMatchers(SWAGGER_WHITELIST).permitAll()
-    //             .antMatchers("/h2-console/**").permitAll()
-    //             .antMatchers(HttpMethod.POST,"/login").permitAll()
-    //             .antMatchers(HttpMethod.POST,"/users").permitAll()
-    //             .antMatchers(HttpMethod.GET,"/users").hasAnyRole("USERS","MANAGERS")
-    //             .antMatchers("/managers").hasAnyRole("MANAGERS")
-    //             .anyRequest().authenticated()
-    //             .and()
-    //             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    // }
-
-
-    // =============================================================================
-
-
-    // Método utilizado para substituir o método acima
-
     // Método para ser utilizado apenas caso meu banco seja o H2
 
     // @Bean //HABILITANDO ACESSAR O H2-DATABSE NA WEB

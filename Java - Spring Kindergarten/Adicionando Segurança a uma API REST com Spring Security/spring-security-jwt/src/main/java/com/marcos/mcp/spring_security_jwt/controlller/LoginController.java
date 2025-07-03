@@ -21,8 +21,7 @@ public class LoginController {
     
     @Autowired
     private PasswordEncoder encoder;
-    @Autowired
-    private SecurityConfig securityConfig;
+    
     @Autowired
     private UserRepository repository;
     
@@ -45,10 +44,10 @@ public class LoginController {
             JWTObject jwtobject = new JWTObject();
             
             jwtobject.setIssuedAt(new Date(System.currentTimeMillis()));
-            jwtobject.setExpiration(new Date(System.currentTimeMillis() + securityConfig.getExpiration()));
+            jwtobject.setExpiration(new Date(System.currentTimeMillis() + SecurityConfig.expiration));
             jwtobject.setRoles(user.getRoles());
     
-            sessao.setToken(JWTCreator.create(securityConfig.getPrefix(), securityConfig.getKey(), jwtobject));
+            sessao.setToken(JWTCreator.create(SecurityConfig.prefix, SecurityConfig.key, jwtobject));
             
             return sessao;
         } else{
@@ -56,38 +55,5 @@ public class LoginController {
         }
     } 
 
-
-
-    // Versão anterior(original do tutorial) abaixo:
-
-    // @PostMapping("/login")
-    // public Sessao logar(@RequestBody Login login ){
-        
-    //     User user = repository.findByUsername(login.getUsername());
-    
-    //     if (user!=null) {
-    //         boolean passwordOk = encoder.matches(login.getPassword(), user.getPassword());
-    
-    //         if (!passwordOk) {
-    //             throw new RuntimeException("Senha inválida para o login: " + login.getUsername());
-    //         }
-    
-    //         Sessao sessao = new Sessao();
-    
-    //         sessao.setLogin(login.getUsername());
-    
-    //         JWTObject jwtobject = new JWTObject();
-            
-    //         jwtobject.setIssuedAt(new Date(System.currentTimeMillis()));
-    //         jwtobject.setExpiration(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION));
-    //         jwtobject.setRoles(user.getRoles());
-    
-    //         sessao.setToken(JWTCreator.create(SecurityConfig.PREFIX, SecurityConfig.KEY, jwtobject));
-            
-    //         return sessao;
-    //     } else{
-    //         throw new RuntimeException("Erro ao tentar logar");
-    //     }
-    // } 
 
 }

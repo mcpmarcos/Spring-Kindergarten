@@ -1,0 +1,11 @@
+O arquivo zipado presente nesta pasta é referente a uma versão do projeto "spring-security-jwt" que possui algumas diferenças com relação a criação do token JWT e a leitura da chave de segurança. 
+
+Estas alterações foram feitas pois um erro tinha ocorrido e o motivo na realidade foi a presença de um caractere não reconhecido no application.properties e o fato de eu não saber que o defeito era este. Com isso, fiz uma serie de alterações desnecessárias, porém que funcionaram.
+
+
+A versão do projeto que não está zipada, é a versão mais atual e fiel ao tutorial. 
+
+Já está commitado em:
+
+
+https://github.com/mcpmarcos/Spring-Kindergarten  
