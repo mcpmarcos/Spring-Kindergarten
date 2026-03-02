@@ -1,0 +1,165 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1732194704811
+  modified: 1732194704811
+  description: ""
+collection:
+  - name: SRS
+    meta:
+      id: fld_dc0e6ba3d7694e03ae35e9beb6fce778
+      created: 1732194997154
+      modified: 1732194997154
+      sortKey: -1732194997154
+      description: ""
+  - name: JWT - Security
+    meta:
+      id: fld_90fb288cf19849ba84efebcdc9820db4
+      created: 1750961694288
+      modified: 1751568943396
+      sortKey: -1750961694288
+      description: ""
+    children:
+      - url: http://localhost:8080/users
+        name: New User
+        meta:
+          id: req_1fb4530cf1214477ae44c266250db850
+          created: 1750961705812
+          modified: 1751567318627
+          isPrivate: false
+          description: ""
+          sortKey: -1750961705812
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+             "name": "Edna Alves Carvalho",
+             "username": "3dna",
+             "password": "abc123!",
+            	"roles": [
+            		"USERS", 
+            		"MANAGERS" 
+            	]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.1.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/login
+        name: Login
+        meta:
+          id: req_c187a4a6fa5a414f9310eb5863a96787
+          created: 1751303287779
+          modified: 1751567411357
+          isPrivate: false
+          description: ""
+          sortKey: -1751303287779
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "username": "3dna",
+              "password": "abc123!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/users
+        name: Get Users
+        meta:
+          id: req_f07ba170f22745df95d2f10b25fe54d1
+          created: 1751379053193
+          modified: 1751567796259
+          isPrivate: false
+          description: ""
+          sortKey: -1751379053193
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_01d0ebbf11b944b3a9ecfbc27ff08b06
+            disabled: true
+          - id: pair_73e4e17e044043fcb4db9f7a521e8b38
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3NTE1Njc3ODIsImV4cCI6MTc1MTU3MTM4MiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSUyIsIlJPTEVfTUFOQUdFUlMiXX0.6s92plKp8nYKBjImYuXzobQuNDaC7E-rDJKOJ-7hOhy0AJh7asFNG69Cfq-y_-rF95knY_Dag1DlYQGBoN_bqw
+            description: ""
+            disabled: false
+            type: text
+            multiline: false
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3NTEzOTcwODAsImV4cCI6MTc1MTQwMDY4MCwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSUyIsIlJPTEVfTUFOQUdFUlMiXX0.J7uXMY1gi2iAmEihWrB9Xr4Vl6l2yXFyPF18jJ3LCKLtnktDHnfrpdQd5wBS6QuuDGKd98XC56CFpE5CDv_XGA
+          prefix: Bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/managers
+        name: Get Managers
+        meta:
+          id: req_4bf29c82dc304ec3be50279ef084dd8b
+          created: 1751379078199
+          modified: 1751567805052
+          isPrivate: false
+          description: ""
+          sortKey: -1751379078199
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+            id: pair_a6069e3f24e5473888d4eb534f149918
+            disabled: true
+          - id: pair_30d15bf0fc1d4f6292109c0e02d7fc96
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3NTE1Njc3ODIsImV4cCI6MTc1MTU3MTM4MiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSUyIsIlJPTEVfTUFOQUdFUlMiXX0.6s92plKp8nYKBjImYuXzobQuNDaC7E-rDJKOJ-7hOhy0AJh7asFNG69Cfq-y_-rF95knY_Dag1DlYQGBoN_bqw
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1732194919542
+    modified: 1732194919542
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1732194919451
+    modified: 1732194919451
+    isPrivate: false
