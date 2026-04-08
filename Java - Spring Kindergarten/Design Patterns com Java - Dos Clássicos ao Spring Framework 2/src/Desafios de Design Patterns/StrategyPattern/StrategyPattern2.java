@@ -1,0 +1,117 @@
+package StrategyPattern;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+/*
+Descrição
+Você está desenvolvendo um sistema simples de carrinho de compras. O desafio é implementar a funcionalidade de calcular o total da compra, permitindo que o usuário escolha entre diferentes estratégias de desconto, utilizando o padrão de projeto Strategy.
+
+Entrada
+O programa deve permitir que o usuário adicione produtos ao carrinho, informando o nome e o preço de cada produto. Em seguida, o usuário deve escolher a estratégia de desconto desejada entre duas opções: 10% de desconto ou frete grátis.
+
+Saída
+O programa deve calcular e exibir o total da compra com base na estratégia de desconto escolhida.
+
+Exemplos
+A tabela abaixo apresenta exemplos com alguns dados de entrada e suas respectivas saídas esperadas. Certifique-se de testar seu programa com esses exemplos e com outros casos possíveis.
+
+_____________________________________
+
+
+Entrada: Livro, 45, 1
+Saída: Total da compra com 10% de desconto: 40.5
+
+Entrada: Air Fryer, 200, 2
+Saída: Frete grátis aplicado | Total da compra: 200.0
+
+Entrada: Celular, 1000, 1
+Saída: Total da compra: 900.0
+
+*/
+
+
+interface DiscountStrategy {
+    double applyDiscount(double total);
+}
+
+// Implementações concretas do Strategy
+class TenPercentDiscount implements DiscountStrategy {
+    @Override
+    public double applyDiscount(double total) {
+        return total * 0.9;
+    }
+}
+
+class FreeShipping implements DiscountStrategy {
+    @Override
+    public double applyDiscount(double total) {
+        System.out.println("Frete gratis aplicado");
+        return total;
+    }
+}
+
+// Contexto que utiliza a estratégia
+class ShoppingCart {
+    private List<Double> products = new ArrayList<>();
+    private DiscountStrategy discountStrategy;
+
+    public void addProduct(double price) {
+        products.add(price);
+    }
+
+    public void setDiscountStrategy(DiscountStrategy discountStrategy) {
+        this.discountStrategy = discountStrategy;
+    }
+
+    public double calculateTotal() {
+
+        // TODO: Implementar a lógica de cálculo do total
+
+        double total = 0.0;
+        for(Double p: products){
+            total += discountStrategy.applyDiscount(p);
+        }
+        return total;  // Retornar o total calculado
+    }
+}
+
+public class StrategyPattern2 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Criando instâncias das estratégias de desconto
+        DiscountStrategy tenPercentDiscount = new TenPercentDiscount();
+        DiscountStrategy freeShipping = new FreeShipping();
+
+        // Criando o carrinho de compras
+        ShoppingCart cart = new ShoppingCart();
+
+        // Adicionando produtos ao carrinho
+        String productName = scanner.nextLine();
+        double productPrice = scanner.nextDouble();
+        cart.addProduct(productPrice);
+
+        // Escolhendo a estratégia de desconto
+        int strategyChoice = scanner.nextInt();
+
+        // Configurando a estratégia no carrinho
+        switch (strategyChoice) {
+            case 1:
+                cart.setDiscountStrategy(tenPercentDiscount);
+                break;
+            case 2:
+                cart.setDiscountStrategy(freeShipping);
+                break;
+            default:
+                System.out.println("Escolha invalida. Nenhum desconto aplicado.");
+        }
+
+        // TODO: Chamar o método calculateTotal e exibir o resultado
+        double total = cart.calculateTotal();
+        System.out.println("Total da compra: R$" + total);
+    }
+}
