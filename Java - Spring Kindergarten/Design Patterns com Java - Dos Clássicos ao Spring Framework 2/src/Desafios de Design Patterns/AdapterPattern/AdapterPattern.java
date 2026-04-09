@@ -67,7 +67,9 @@ class CurrencyAdapter {
 
     // TODO: Implementar método de conversão de USD para outra moeda (por exemplo, JPY)
     // Dica: Você pode criar métodos adicionais conforme necessário.
-
+    public double convertUSDtoEUR(double amount){
+      return oldConverter.convertUSDtoGBP(amount) * 1.0625;
+    }
 }
 
 public class AdapterPattern {
@@ -79,11 +81,14 @@ public class AdapterPattern {
         OldCurrencyConverter oldConverter = new OldCurrencyConverter();
         CurrencyAdapter adapter = new CurrencyAdapter(oldConverter);
 
+        System.out.println("USD: " + input);
+        
         // TODO: Chamar o método para converter USD para a nova moeda desejada (por exemplo, JPY)
 
         // TODO: Imprimir o resultado da conversão
 
-        System.out.println("USD: " + input);
         // TODO: Imprimir o resultado da conversão com a nova moeda (por exemplo, JPY)
+        System.out.println("EUR: " + adapter.convertUSDtoEUR(input));
+
     }
 }
