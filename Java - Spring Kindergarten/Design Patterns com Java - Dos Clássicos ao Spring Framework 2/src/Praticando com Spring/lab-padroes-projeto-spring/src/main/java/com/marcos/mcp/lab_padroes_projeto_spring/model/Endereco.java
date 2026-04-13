@@ -28,6 +28,12 @@ public class Endereco {
     public Endereco() {
     }
 
+    public Endereco(String uf, String city, String complemento) {
+        this.uf = uf;
+        this.localidade = city;
+        this.complemento = complemento;
+    }
+
     public String getCep() {
         return cep;
     }
@@ -107,7 +113,5 @@ public class Endereco {
     public void setSiafi(String siafi) {
         this.siafi = siafi;
     }
-
-
 
 }

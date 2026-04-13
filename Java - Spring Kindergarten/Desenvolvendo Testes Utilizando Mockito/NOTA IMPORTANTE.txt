@@ -1,0 +1,4 @@
+
+
+
+Os testes que foram escritos neste módulo estão dentro do projeto que está na pasta "Design Patterns com Java - Dos Clássicos ao Spring Framework 2"

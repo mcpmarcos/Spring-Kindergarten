@@ -12,6 +12,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
 
     @ManyToOne
@@ -46,7 +47,7 @@ public class Client {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
+    }    
 
     
 

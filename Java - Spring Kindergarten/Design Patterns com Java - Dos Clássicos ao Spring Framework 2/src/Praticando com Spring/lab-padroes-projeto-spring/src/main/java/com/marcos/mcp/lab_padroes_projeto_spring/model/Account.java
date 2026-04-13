@@ -18,5 +18,25 @@ public class Account {
         return balance;
     }
 
-   
+    public void payBill(int payingAmount){
+        validateBalance(payingAmount);
+        debiting(payingAmount);
+        sendCreditToCompany(payingAmount);
+    }
+
+    public void debiting(int payingAmount) {
+        this.balance -= payingAmount;
+        // this.balance = this.balance - payingAmount;
+
+    }
+
+    public void validateBalance(int payingAmount) {
+        if (this.balance < payingAmount) {
+            throw new IllegalArgumentException("Saldo insuficiente para realizar o pagamento.");
+        }
+    }
+
+    public void sendCreditToCompany(int payingAmount) {
+
+    }
 }
